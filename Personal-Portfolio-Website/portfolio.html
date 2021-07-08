@@ -1,0 +1,2650 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+      /*Font Awesome Free Icon*/
+      @import url("https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+      /*Google fonts*/
+      @import url("https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700&display=swap");
+      @import url("https://fonts.googleapis.com/css?family=Rubik:500,700,900&display=swap");
+
+      /* General Style */
+      body {
+        margin: 0;
+        line-height: 1.5;
+        font-size: 16px;
+        font-family: "Montserrat", sans-serif;
+        font-weight: 400;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        outline: none;
+        text-decoration: none;
+        box-sizing: border-box;
+      }
+
+      ::before,
+      ::after {
+        box-sizing: border-box;
+      }
+
+      input,
+      textarea,
+      select {
+        font-family: "Montserrat", sans-serif;
+      }
+
+      .section {
+        background-color: #c8fdff;
+        min-height: 100vh;
+        display: block;
+        padding: 0 30px;
+        position: fixed;
+        left: 270px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+        opacity: 1;
+        transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
+      }
+
+      .section.active {
+        opacity: 1;
+        z-index: 2;
+        animation: slideSection 1s ease;
+        -webkit-animation: slideSection 1s ease;
+        -moz-animation: slideSection 1s ease;
+        -o-animation: slideSection 1s ease;
+      }
+
+      .section.back-section {
+        z-index: 1;
+      }
+
+      @keyframes slideSection {
+        0% {
+          transform: translateX(100%);
+          -webkit-transform: translateX(100%);
+          -moz-transform: translateX(100%);
+          -o-transform: translateX(100%);
+        }
+
+        100% {
+          transform: translateX(0%);
+          -webkit-transform: translateX(0%);
+          -moz-transform: translateX(0%);
+          -o-transform: translateX(0%);
+        }
+      }
+
+      @-webkit-keyframes slideSection {
+        0% {
+          transform: translateX(100%);
+          -webkit-transform: translateX(100%);
+          -moz-transform: translateX(100%);
+          -o-transform: translateX(100%);
+        }
+
+        100% {
+          transform: translateX(0%);
+          -webkit-transform: translateX(0%);
+          -moz-transform: translateX(0%);
+          -o-transform: translateX(0%);
+        }
+      }
+
+      @-moz-keyframes slideSection {
+        0% {
+          transform: translateX(100%);
+          -webkit-transform: translateX(100%);
+          -moz-transform: translateX(100%);
+          -o-transform: translateX(100%);
+        }
+
+        100% {
+          transform: translateX(0%);
+          -webkit-transform: translateX(0%);
+          -moz-transform: translateX(0%);
+          -o-transform: translateX(0%);
+        }
+      }
+
+      @-o-keyframes slideSection {
+        0% {
+          transform: translateX(100%);
+          -webkit-transform: translateX(100%);
+          -moz-transform: translateX(100%);
+          -o-transform: translateX(100%);
+        }
+
+        100% {
+          transform: translateX(0%);
+          -webkit-transform: translateX(0%);
+          -moz-transform: translateX(0%);
+          -o-transform: translateX(0%);
+        }
+      }
+
+      .section .container {
+        padding-top: 60px;
+        padding-bottom: 70px;
+      }
+
+      .section-title {
+        -ms-flex: 0 0 100%;
+        flex: 0 0 100%;
+        max-width: 100%;
+        margin-bottom: 60px;
+      }
+
+      .section-title h2 {
+        font-size: 40px;
+        color: #302e4d;
+        font-family: "Rubik", sans-serif;
+        font-weight: 700;
+        margin: 0;
+        position: relative;
+      }
+
+      .section-title h2::before {
+        content: "";
+        height: 4px;
+        width: 50px;
+        position: absolute;
+        top: 100%;
+        left: 0;
+      }
+
+      .section-title h2::after {
+        content: "";
+        height: 4px;
+        width: 25px;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        margin-top: 8px;
+      }
+
+      .row {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        margin-right: -15px;
+        margin-left: -15px;
+        position: relative;
+      }
+
+      .padd-15 {
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+
+      .container {
+        max-width: 1100px;
+        width: 100%;
+        margin: auto;
+      }
+
+      .shadow-dark {
+        -webkit-box-shadow: 0 0 20px rgba(48, 46, 77, 0.15);
+        box-shadow: 0 0 20px rgba(48, 46, 77, 0.15);
+      }
+
+      .btn {
+        font-size: 16px;
+        font-family: "Rubik", sans-serif;
+        font-weight: 500;
+        padding: 12px 35px;
+        color: #ffffff;
+        border-radius: 40px;
+        transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
+        display: inline-block;
+        white-space: nowrap;
+        border: none;
+        cursor: pointer;
+      }
+
+      .btn:hover {
+        -webkit-transform: scale(1.05);
+        transform: scale(1.05);
+      }
+
+      .hidden {
+        display: none !important;
+      }
+
+      /* Preloader */
+      .preloader {
+        background-color: black;
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        z-index: 150;
+        display: flex;
+        display: -ms-flexbox;
+        -ms-flex-align: center;
+        -ms-flex-pack: center;
+        align-items: center;
+        justify-content: center;
+        transition: all 1s ease;
+        -webkit-transition: all 1s ease;
+      }
+
+      .preloader.opacity-0 {
+        opacity: 0;
+      }
+
+      .preloader .loader {
+        height: 60px;
+        width: 60px;
+        border: 6px solid yellow;
+        border-radius: 50%;
+        border-top: 6px solid transparent;
+        border-bottom: 6px solid transparent;
+        animation: spin 2s linear infinite;
+        -webkit-animation: spin 2s linear infinite;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+          -webkit-transform: rotate(0deg);
+        }
+
+        100% {
+          transform: rotate(360deg);
+          -webkit-transform: rotate(360deg);
+        }
+      }
+
+      @-webkit-keyframes spin {
+        0% {
+          transform: rotate(0deg);
+          -webkit-transform: rotate(0deg);
+        }
+
+        100% {
+          transform: rotate(360deg);
+          -webkit-transform: rotate(360deg);
+        }
+      }
+
+      /* Aside */
+
+      .aside {
+        width: 270px;
+        background-color: #f6fdff;
+        position: fixed;
+        height: 100%;
+        left: 0;
+        top: 0;
+        z-index: 11;
+        border-right: 2px solid #000000;
+        /* padding: 30px; */
+        transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
+        /* overflow-y: auto; */
+      }
+
+      .aside .aside-inner {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        padding: 30px;
+        overflow-y: auto;
+      }
+
+      .aside .logo {
+        padding: 30px 0;
+      }
+
+      .aside .logo a {
+        font-size: 40px;
+        color: #000000;
+        font-family: "Rubik", sans-serif;
+        font-weight: 700;
+        text-decoration: none;
+        display: inline-block;
+        position: relative;
+        padding: 0 10px;
+        line-height: 50px;
+      }
+
+      .aside .logo a::before {
+        content: "";
+        height: 20px;
+        width: 20px;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      .aside .logo a::after {
+        content: "";
+        height: 20px;
+        width: 20px;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+      }
+
+      .aside .nav-toggler {
+        height: 40px;
+        width: 45px;
+        border: 1px solid #ff81ff;
+        cursor: pointer;
+        position: fixed;
+        left: 300px;
+        top: 20px;
+        z-index: 11;
+        border-radius: 5px;
+        background-color: #ff90f9;
+        /* display: -ms-flexbox;
+    display: flex; */
+        display: none;
+        -ms-flex-align: center;
+        align-items: center;
+        justify-content: center;
+        -ms-flex-pack: center;
+        transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
+      }
+
+      .aside .nav-toggler span {
+        height: 2px;
+        width: 18px;
+        display: inline-block;
+        position: relative;
+      }
+
+      .aside .nav-toggler.open span {
+        background-color: transparent;
+      }
+
+      .aside .nav-toggler span::before {
+        content: "";
+        height: 2px;
+        width: 18px;
+        position: absolute;
+        top: -6px;
+        left: 0;
+      }
+
+      .aside .nav-toggler.open span::before {
+        transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        top: 0px;
+      }
+
+      .aside .nav-toggler span::after {
+        content: "";
+        height: 2px;
+        width: 18px;
+        position: absolute;
+        top: 6px;
+        left: 0;
+      }
+
+      .aside .nav-toggler.open span::after {
+        transform: rotate(-45deg);
+        -webkit-transform: rotate(-45deg);
+        top: 0px;
+      }
+
+      .aside .nav {
+        list-style: none;
+        margin: 70px 0;
+        padding: 0;
+      }
+
+      .aside .nav li {
+        display: block;
+      }
+
+      .aside .nav li a {
+        font-size: 16px;
+        font-weight: 600;
+        color: #302e4d;
+        text-decoration: none;
+        line-height: 45px;
+        display: block;
+        border-bottom: 1px solid #1900ff;
+        -webkit-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+        text-transform: capitalize;
+      }
+
+      .aside .nav li a:not(.active):hover {
+        padding-left: 5px;
+      }
+
+      .aside .nav li a .fa {
+        margin-right: 5px;
+      }
+
+      .aside .copyright-text {
+        position: absolute;
+        bottom: 5px;
+        font-size: 13px;
+        color: #7d7d7d;
+      }
+
+      /* Home Section */
+
+      .home {
+        min-height: 100vh;
+        display: -ms-flexbox;
+        display: flex;
+      }
+
+      .home .intro {
+        text-align: center;
+      }
+
+      .home .intro img {
+        height: 200px;
+        width: 200px;
+        border-radius: 50%;
+        display: inline-block;
+        border: 8px solid #ffffff;
+      }
+
+      .home .intro h1 {
+        font-size: 30px;
+        color: #302e4d;
+        font-family: "Rubik", sans-serif;
+        font-weight: 700;
+        margin: 20px 0 5px;
+      }
+
+      .home .intro span {
+        font-size: 16px;
+        font-weight: 500;
+        margin: 0;
+        line-height: 22px;
+        color: #504e70;
+      }
+
+      .home .intro .social-links {
+        margin-top: 25px;
+      }
+
+      .home .intro .social-links a {
+        height: 35px;
+        width: 35px;
+        display: inline-block;
+        text-align: center;
+        line-height: 35px;
+        color: #ffffff;
+        margin: 0 4px;
+        border-radius: 40%;
+        text-decoration: none;
+        -webkit-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+      }
+
+      .home .intro .social-links a:hover {
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+      }
+
+      .ityped-cursor {
+        /* font-size: 2.2rem; */
+        opacity: 1;
+        -webkit-animation: blink 0.3s infinite;
+        -moz-animation: blink 0.3s infinite;
+        animation: blink 0.3s infinite;
+        animation-direction: alternate;
+      }
+
+      @keyframes blink {
+        100% {
+          opacity: 0;
+        }
+      }
+
+      @-webkit-keyframes blink {
+        100% {
+          opacity: 0;
+        }
+      }
+
+      @-moz-keyframes blink {
+        100% {
+          opacity: 0;
+        }
+      }
+
+      /* About Section */
+
+      .about .about-content {
+        -ms-flex: 0 0 100%;
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
+
+      .about .about-content .about-text {
+        -ms-flex: 0 0 100%;
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
+
+      .about .about-content .about-text h3 {
+        font-size: 24px;
+        margin-bottom: 15px;
+        font-weight: 700;
+        color: #302e4d;
+      }
+
+      .about .about-content .about-text p {
+        font-size: 16px;
+        line-height: 25px;
+        color: #020203;
+        margin: 0;
+      }
+
+      .about .about-content .personal-info {
+        -ms-flex: 0 0 60%;
+        flex: 0 0 60%;
+        max-width: 60%;
+        margin-top: 40px;
+      }
+
+      .about .about-content .personal-info .info-item {
+        -ms-flex: 0 0 50%;
+        flex: 0 0 50%;
+        max-width: 50%;
+      }
+
+      .about .about-content .personal-info .info-item p {
+        font-weight: 600;
+        padding: 10px 0;
+        font-size: 16px;
+        margin: 0;
+        color: #302e4d;
+        border-bottom: 1px solid #1900ff;
+      }
+
+      .about .about-content .personal-info .info-item p span {
+        font-weight: 400;
+        color: #504e70;
+        margin-left: 4px;
+        display: inline-block;
+      }
+
+      .about .about-content .personal-info .buttons {
+        margin-top: 30px;
+      }
+
+      .about .about-content .personal-info .buttons .btn {
+        margin-right: 15px;
+        margin-top: 10px;
+      }
+
+      .about .about-content .skills {
+        -ms-flex: 0 0 40%;
+        flex: 0 0 40%;
+        max-width: 40%;
+        margin-top: 40px;
+      }
+
+      .about .about-content .skills .skill-item {
+        -ms-flex: 0 0 100%;
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
+
+      .about .about-content .skills .skill-item h5 {
+        line-height: 40px;
+        font-weight: 600;
+        font-size: 16px;
+        color: #302e4d;
+        text-transform: capitalize;
+        margin: 0;
+      }
+
+      .about .about-content .skills .skill-item {
+        margin-bottom: 30px;
+      }
+
+      .about .about-content .skills .skill-item .progress {
+        background-color: #ff0000;
+        height: 8px;
+        border-radius: 4px;
+        width: 100%;
+        position: relative;
+      }
+
+      .about .about-content .skills .skill-item .progress .progress-in {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        border-radius: 4px;
+      }
+
+      .about .about-content .skills .skill-item .skill-porcent {
+        line-height: 40px;
+        position: absolute;
+        right: 0;
+        top: -40px;
+        font-weight: 400;
+        color: #302e4d;
+      }
+
+      .about .about-content .education {
+        -ms-flex: 0 0 50%;
+        flex: 0 0 50%;
+        max-width: 50%;
+        margin-top: 30px;
+      }
+
+      .about .about-content .experience {
+        -ms-flex: 0 0 50%;
+        flex: 0 0 50%;
+        max-width: 50%;
+        margin-top: 30px;
+      }
+
+      .about .about-content h3.title {
+        font-size: 24px;
+        margin-bottom: 30px;
+        font-weight: 700;
+        color: #302e4d;
+      }
+
+      .about .about-content .timeline {
+        background-color: #ffffff;
+        padding: 30px 15px;
+        border: 1px solid #0000ff;
+        border-radius: 10px;
+        position: relative;
+        width: 100%;
+      }
+
+      .about .about-content .timeline .timeline-item {
+        position: relative;
+        padding-left: 37px;
+        padding-bottom: 50px;
+      }
+
+      .about .about-content .timeline .timeline-item::before {
+        content: "";
+        width: 1px;
+        position: absolute;
+        height: 100%;
+        left: 7px;
+        top: 0;
+      }
+
+      .about .about-content .timeline .timeline-item:last-child {
+        padding-bottom: 0px;
+      }
+
+      .about .about-content .timeline-box {
+        -ms-flex: 0 0 100%;
+        flex: 0 0 100%;
+        max-width: 100%;
+      }
+
+      .about .about-content .timeline .circle-dot {
+        position: absolute;
+        left: 0;
+        top: 0px;
+        height: 15px;
+        width: 15px;
+        left: 0px;
+        border-radius: 50%;
+      }
+
+      .about .about-content .timeline .timeline-date {
+        font-size: 14px;
+        font-weight: 400;
+        color: #504e70;
+        margin-bottom: 12px;
+      }
+
+      .about .about-content .timeline .timeline-date .fa {
+        margin-right: 5px;
+      }
+
+      .about .about-content .timeline .timeline-title {
+        font-weight: 700;
+        font-size: 18px;
+        margin-bottom: 15px;
+        text-transform: capitalize;
+        color: #302e4d;
+      }
+
+      .about .about-content .timeline .timeline-text {
+        font-size: 16px;
+        line-height: 25px;
+        color: #504e70;
+        margin: 0;
+      }
+
+      /* Services Section */
+
+      .service .container {
+        padding-bottom: 40px;
+      }
+
+      .service .service-item {
+        flex: 0 0 33.33%;
+        -ms-flex: 0 0 33.33%;
+        max-width: 33.33%;
+        margin-bottom: 30px;
+        display: -ms-flexbox;
+        display: flex;
+      }
+
+      .service .service-item .service-item-inner {
+        background-color: #fdf9ff;
+        border: 1px solid #200202;
+        border-radius: 10px;
+        padding: 30px 15px;
+        text-align: center;
+        transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
+      }
+
+      .service .service-item .service-item-inner:hover {
+        -webkit-box-shadow: 0 0 20px rgba(48, 46, 77, 0.15);
+        box-shadow: 0 0 20px rgba(48, 46, 77, 0.15);
+      }
+
+      .service .service-item .service-item-inner .icon {
+        height: 60px;
+        width: 60px;
+        display: block;
+        margin: 0 auto 30px;
+        text-align: center;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
+      }
+
+      .service .service-item .service-item-inner .icon .fa {
+        font-size: 40px;
+        line-height: 60px;
+        transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
+      }
+
+      .service .service-item .service-item-inner:hover .icon .fa {
+        font-size: 25px;
+        color: #ffffff;
+      }
+
+      .service .service-item .service-item-inner h4 {
+        font-size: 18px;
+        margin-bottom: 15px;
+        color: #302e4d;
+        font-weight: 700;
+        text-transform: capitalize;
+      }
+
+      .service .service-item .service-item-inner p {
+        font-size: 16px;
+        color: #504e70;
+        line-height: 25px;
+        margin: 0;
+      }
+
+      /* Portfolio Section */
+
+      .portfolio .container {
+        padding-bottom: 40px;
+      }
+
+      .portfolio .portfolio-filter {
+        flex: 0 0 100%;
+        -ms-flex: 0 0 100%;
+        max-width: 100%;
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      .portfolio .portfolio-filter button {
+        border: none;
+        background-color: transparent;
+        font-size: 18px;
+        font-weight: 700;
+        text-transform: capitalize;
+        margin: 0 10px;
+        color: #302e4d;
+        cursor: pointer;
+        border-bottom: 2px solid transparent;
+        white-space: nowrap;
+        padding-bottom: 2px;
+        transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
+      }
+
+      .portfolio .portfolio-item {
+        flex: 0 0 33.33%;
+        -ms-flex: 0 0 33.33%;
+        max-width: 33.33%;
+        margin-bottom: 30px;
+      }
+
+      .portfolio .portfolio-item.hide {
+        display: none;
+      }
+
+      .portfolio .portfolio-item.show {
+        display: block;
+        animation: showItem 0.5s ease;
+      }
+
+      @keyframes showItem {
+        0% {
+          transform: scale(0.8);
+          -webkit-transform: scale(0.8);
+        }
+
+        100% {
+          transform: scale(1);
+          -webkit-transform: scale(1);
+        }
+      }
+
+      @-webkit-keyframes showItem {
+        0% {
+          transform: scale(0.8);
+          -webkit-transform: scale(0.8);
+          opacity: 0;
+        }
+
+        100% {
+          transform: scale(1);
+          -webkit-transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      .portfolio .portfolio-item-inner {
+        border: 6px solid #ffffff;
+        border-radius: 10px;
+        overflow: hidden;
+        cursor: pointer;
+        position: relative;
+      }
+
+      .portfolio .portfolio-item-inner .portfolio-img img {
+        width: 100%;
+        display: block;
+      }
+
+      .portfolio .portfolio-item .portfolio-info {
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.8);
+        height: 100%;
+        width: 100%;
+        z-index: 1;
+        padding: 30px;
+        opacity: 0;
+        transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
+      }
+
+      .portfolio .portfolio-item-inner:hover .portfolio-info {
+        opacity: 1;
+      }
+
+      .portfolio .portfolio-item .portfolio-info h4 {
+        font-size: 18px;
+        font-weight: 700;
+        color: #ffffff;
+        text-transform: capitalize;
+        transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
+        transform: translate(-20px);
+        -webkit-transform: translate(-20px);
+        opacity: 0;
+      }
+
+      .portfolio .portfolio-item-inner:hover .portfolio-info h4 {
+        transform: translate(0px);
+        -webkit-transform: translate(0px);
+        opacity: 1;
+      }
+
+      .portfolio .portfolio-item .portfolio-info .icon {
+        height: 40px;
+        width: 40px;
+        background-color: #ffffff;
+        text-align: center;
+        border-radius: 50%;
+        position: absolute;
+        right: 30px;
+        bottom: 30px;
+        transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
+        transform: translate(20px);
+        -webkit-transform: translate(20px);
+        opacity: 0;
+      }
+
+      .portfolio .portfolio-item-inner:hover .portfolio-info .icon {
+        transform: translate(0px);
+        -webkit-transform: translate(0px);
+        opacity: 1;
+      }
+
+      .portfolio .portfolio-item .portfolio-info .icon .fa {
+        line-height: 40px;
+      }
+
+      /* Lightbox */
+
+      .lightbox {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6);
+        z-index: 100;
+        display: none;
+        align-items: center;
+        -ms-flex-align: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        cursor: zoom-out;
+        padding: 30px;
+      }
+
+      .lightbox.open {
+        display: flex;
+        display: -ms-flexbox;
+      }
+
+      .lightbox .lightbox-content img {
+        height: auto;
+        width: auto;
+        max-width: 100%;
+        max-height: 500px;
+        cursor: pointer;
+        display: block;
+        padding: 40px 0 30px;
+      }
+
+      .lightbox.open .lightbox-content {
+        animation: lightboxImage 0.5s ease;
+      }
+
+      @keyframes lightboxImage {
+        0% {
+          transform: scale(0.8);
+          -webkit-transform: scale(0.8);
+        }
+
+        100% {
+          transform: scale(1);
+          -webkit-transform: scale(1);
+        }
+      }
+
+      @-webkit-keyframes lightboxImage {
+        0% {
+          transform: scale(0.8);
+          -webkit-transform: scale(0.8);
+        }
+
+        100% {
+          transform: scale(1);
+          -webkit-transform: scale(1);
+        }
+      }
+
+      .lightbox .lightbox-content {
+        position: relative;
+      }
+
+      .lightbox .lightbox-content .lightbox-caption {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-pack: space-between;
+        justify-content: space-between;
+        font-size: 16px;
+        color: #ffffff;
+        font-weight: 400;
+        z-index: -1;
+      }
+
+      .lightbox .lightbox-content .lightbox-close {
+        position: absolute;
+        height: 40px;
+        width: 40px;
+        top: 0px;
+        right: 0px;
+        font-size: 32px;
+        text-align: right;
+        color: #ffffff;
+        line-height: 40px;
+        cursor: pointer;
+      }
+
+      .lightbox .lightbox-controls .prev-item,
+      .lightbox .lightbox-controls .next-item {
+        position: absolute;
+        height: 40px;
+        width: 40px;
+        background-color: #ffffff;
+        text-align: center;
+        border-radius: 50%;
+        cursor: pointer;
+        top: 50%;
+        margin-top: -20px;
+        z-index: 110;
+        transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
+      }
+
+      .lightbox .lightbox-controls .prev-item:active,
+      .lightbox .lightbox-controls .next-item:active {
+        transform: scale(1.1);
+        -webkit-transform: scale(1.1);
+      }
+
+      .lightbox .lightbox-controls .prev-item:hover,
+      .lightbox .lightbox-controls .next-item:hover {
+        transform: scale(1);
+        -webkit-transform: scale(1);
+      }
+
+      .lightbox .lightbox-controls .prev-item {
+        left: 30px;
+      }
+
+      .lightbox .lightbox-controls .next-item {
+        right: 30px;
+      }
+
+      .lightbox .lightbox-controls .prev-item .fa,
+      .lightbox .lightbox-controls .next-item .fa {
+        font-size: 32px;
+        line-height: 40px;
+      }
+
+      /* Blog Section */
+
+      .blog .container {
+        padding-bottom: 40px;
+      }
+
+      .blog .blog-item {
+        flex: 0 0 33.33%;
+        -ms-flex: 0 0 33.33%;
+        max-width: 33.33%;
+        margin-bottom: 30px;
+      }
+
+      .blog .blog-item-inner {
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid #d4d4e3;
+      }
+
+      .blog .blog-item-inner .blog-img {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .blog .blog-item-inner .blog-img img {
+        width: 100%;
+        display: block;
+        transition: all 0.5s ease;
+        -webkit-transition: all 0.5s ease;
+      }
+
+      .blog .blog-item-inner:hover .blog-img img {
+        transform: scale(1.1);
+        -webkit-transform: scale(1.1);
+      }
+
+      .blog .blog-item-inner .blog-img .blog-date {
+        position: absolute;
+        padding: 4px 10px;
+        border-radius: 5px;
+        color: #ffffff;
+        font-size: 14px;
+        font-weight: 600;
+        left: 15px;
+        bottom: 15px;
+      }
+
+      .blog .blog-item-inner .blog-info {
+        padding: 30px 15px;
+        background-color: #fdf9ff;
+      }
+
+      .blog .blog-item-inner .blog-info .blog-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #302e4d;
+        text-transform: capitalize;
+        margin-bottom: 10px;
+      }
+
+      .blog .blog-item-inner .blog-info .blog-description {
+        font-size: 16px;
+        line-height: 25px;
+        color: #504e70;
+        font-weight: 400;
+        margin-bottom: 15px;
+      }
+
+      .blog .blog-item-inner .blog-info .blog-tags {
+        font-size: 16px;
+        line-height: 25px;
+        color: #504e70;
+        font-weight: 400;
+        text-transform: capitalize;
+        font-size: 14px;
+      }
+
+      .blog .blog-item-inner .blog-info .blog-tags a {
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      /* Contact Section */
+
+      .contact .contact-info-item {
+        flex: 0 0 33.33%;
+        -ms-flex: 0 0 33.33%;
+        max-width: 33.33%;
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      .contact .contact-info-item .icon {
+        display: inline-block;
+      }
+
+      .contact .contact-info-item .icon .fa {
+        font-size: 40px;
+      }
+
+      .contact .contact-info-item h4 {
+        font-size: 18px;
+        font-weight: 700;
+        color: #302e4d;
+        text-transform: capitalize;
+        margin: 15px 0 5px;
+      }
+
+      .contact .contact-info-item p {
+        font-size: 16px;
+        line-height: 25px;
+        color: #504e70;
+        margin: 0;
+        font-weight: 400;
+      }
+
+      .contact .contact-form {
+        flex: 0 0 100%;
+        -ms-flex: 0 0 100%;
+        max-width: 100%;
+      }
+
+      .contact .contact-form .col-6 {
+        flex: 0 0 50%;
+        -ms-flex: 0 0 50%;
+        max-width: 50%;
+      }
+
+      .contact .contact-form .col-12 {
+        flex: 0 0 100%;
+        -ms-flex: 0 0 100%;
+        max-width: 100%;
+      }
+
+      .contact .contact-form .form-item {
+        margin-bottom: 30px;
+      }
+
+      .contact .contact-form .form-item .form-control {
+        width: 100%;
+        height: 50px;
+        border-radius: 25px;
+        border: 1px solid #2600ff;
+        padding: 10px 25px;
+        font-size: 16px;
+        color: #000000;
+      }
+
+      .contact .contact-form .form-item .form-control:focus {
+        -webkit-box-shadow: 0 0 20px rgba(48, 46, 77, 0.15);
+        box-shadow: 0 0 20px rgba(48, 46, 77, 0.15);
+        transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
+      }
+
+      .contact .contact-form .form-item textarea.form-control {
+        height: 140px;
+      }
+
+      .contact .contact-form .btn {
+        height: 50px;
+        padding: 0 50px;
+      }
+
+      /* Responsive */
+
+      @media (max-width: 1199px) {
+        .section .container {
+          padding-top: 70px;
+        }
+
+        .aside .nav-toggler {
+          display: -ms-flexbox;
+          display: flex;
+          left: 30px;
+        }
+
+        .aside .nav-toggler.open {
+          left: 300px;
+        }
+
+        .aside {
+          left: -270px;
+        }
+
+        .aside.open {
+          left: 0;
+        }
+
+        .section {
+          left: 0;
+        }
+
+        .section.open {
+          left: 270px;
+        }
+
+        .about .about-content .personal-info .info-item p span {
+          display: block;
+          margin-left: 0;
+        }
+      }
+
+      @media (max-width: 991px) {
+        .service .service-item,
+        .blog .blog-item,
+        .portfolio .portfolio-item {
+          flex: 0 0 50%;
+          -ms-flex: 0 0 50%;
+          max-width: 50%;
+        }
+      }
+
+      @media (max-width: 767px) {
+        .about .about-content .personal-info,
+        .contact .contact-form .col-6,
+        .service .service-item,
+        .blog .blog-item,
+        .about .about-content .skills,
+        .about .about-content .education,
+        .about .about-content .experience {
+          flex: 0 0 100%;
+          -ms-flex: 0 0 100%;
+          max-width: 100%;
+        }
+
+        .portfolio .portfolio-filter button {
+          margin-bottom: 10px;
+        }
+      }
+
+      @media (max-width: 575px) {
+        .portfolio .portfolio-item,
+        .contact .contact-info-item {
+          flex: 0 0 100%;
+          -ms-flex: 0 0 100%;
+          max-width: 100%;
+        }
+      }
+    </style>
+
+    <style>
+      .style-switcher {
+        position: fixed;
+        top: 20px;
+        right: 0;
+        z-index: 10;
+        background-color: white;
+        padding: 15px;
+        border: 1px solid #d4d4e3;
+        border-right: none;
+        border-radius: 0 0 0 5px;
+        transform: translateX(100%);
+        -webkit-transform: translateX(100%);
+        transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
+      }
+
+      .style-switcher.open {
+        transform: translateX(0%);
+        -webkit-transform: translateX(0%);
+      }
+
+      .style-switcher h5 {
+        font-size: 16px;
+        color: #302e4d;
+        margin-bottom: 8px;
+        padding-bottom: 5px;
+        border-bottom: 1px solid #e8dfec;
+      }
+
+      .style-switcher ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      .style-switcher ul li {
+        display: inline-block;
+      }
+
+      .style-switcher ul li a {
+        height: 30px;
+        width: 30px;
+        display: block;
+        border-radius: 50%;
+        cursor: pointer;
+        text-decoration: none;
+        margin-right: 2px;
+      }
+
+      .style-switcher .toggle-style-switcher {
+        position: absolute;
+        height: 45px;
+        width: 45px;
+        background-color: #ffffff;
+        left: -46px;
+        top: -1px;
+        border: 1px solid #d4d4e3;
+        border-right: none;
+        text-align: center;
+        cursor: pointer;
+        border-radius: 5px 0 0 5px;
+      }
+
+      .style-switcher .toggle-style-switcher .fa {
+        font-size: 20px;
+        line-height: 43px;
+      }
+
+      /* Dark Body */
+
+      body.dark .section {
+        background-color: #151515;
+      }
+
+      body.dark .aside,
+      body.dark .contact .contact-form .form-item .form-control,
+      body.dark .blog .blog-item-inner .blog-info,
+      body.dark .service .service-item .service-item-inner,
+      body.dark .about .about-content .timeline {
+        background-color: #222222;
+      }
+
+      body.dark .aside .nav li a,
+      body.dark .blog .blog-item-inner .blog-info .blog-title,
+      body.dark .contact .contact-info-item h4,
+      body.dark .portfolio .portfolio-filter button,
+      body.dark .service .service-item .service-item-inner h4,
+      body.dark .about .about-content .timeline .timeline-title,
+      body.dark .about .about-content .skills .skill-item h5,
+      body.dark .about .about-content .personal-info .info-item p,
+      body.dark .about .about-content .about-text h3,
+      body.dark .home .intro h1,
+      body.dark .about .about-content h3.title,
+      body.dark .section-title h2,
+      body.dark .aside .logo a {
+        color: #ffffff;
+      }
+
+      body.dark .home .intro span,
+      body.dark .contact .contact-form .form-item .form-control,
+      body.dark .blog .blog-item-inner .blog-info .blog-description,
+      body.dark .contact .contact-info-item p,
+      body.dark .blog .blog-item-inner .blog-info .blog-tags,
+      body.dark .service .service-item .service-item-inner p,
+      body.dark .about .about-content .timeline .timeline-text,
+      body.dark .about .about-content .timeline .timeline-date,
+      body.dark .about .about-content .skills .skill-item .skill-porcent,
+      body.dark .about .about-content .personal-info .info-item p span,
+      body.dark .about .about-content .about-text p {
+        color: #e9e9e9;
+      }
+
+      body.dark .about .about-content .personal-info .info-item p,
+      body.dark .aside,
+      body.dark .contact .contact-form .form-item .form-control,
+      body.dark .blog .blog-item-inner,
+      body.dark .portfolio .portfolio-item-innner,
+      body.dark .service .service-item .service-item-inner,
+      body.dark .about .about-content .timeline,
+      body.dark .aside .nav li a {
+        border-color: #393939;
+      }
+
+      body.dark .shadow-dark {
+        -webkit-box-shadow: none;
+        box-shadow: none;
+      }
+    </style>
+
+    <title>Personal Portfolio Template</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Live Style Switcher - Demo Only -->
+    <link
+      rel="stylesheet"
+      class="alternate-style"
+      title="pink"
+      href="skins/pink.css"
+      type="text/css"
+    />
+    <link
+      rel="stylesheet"
+      class="alternate-style"
+      title="blue"
+      href="skins/blue.css"
+      type="text/css"
+      disabled
+    />
+    <link
+      rel="stylesheet"
+      class="alternate-style"
+      title="green"
+      href="skins/green.css"
+      type="text/css"
+      disabled
+    />
+    <link
+      rel="stylesheet"
+      class="alternate-style"
+      title="orange"
+      href="skins/orange.css"
+      type="text/css"
+      disabled
+    />
+    <link
+      rel="stylesheet"
+      class="alternate-style"
+      title="yellow"
+      href="skins/yellow.css"
+      type="text/css"
+      disabled
+    />
+  </head>
+
+  <body>
+    <!-- Preloader -->
+    <div class="preloader">
+      <div class="loader"></div>
+    </div>
+    <!-- Preloader End -->
+
+    <!-- Main Container -->
+    <div class="main-container">
+      <!-- Aside -->
+      <div class="aside">
+        <!-- Nav Toggler Btn -->
+        <div class="nav-toggler">
+          <span></span>
+        </div>
+        <div class="aside-inner">
+          <!-- Logo -->
+          <div class="logo">
+            <a href="#">SATYAM</a>
+          </div>
+          <!-- Nav -->
+          <ul class="nav">
+            <li>
+              <a href="#home" class="active"
+                ><i class="fa fa-home" style="color: #f12409"></i> Home</a
+              >
+            </li>
+            <li>
+              <a href="#about"
+                ><i class="fa fa-user" style="color: #740fd3"></i> About</a
+              >
+            </li>
+            <li>
+              <a href="#services"
+                ><i class="fa fa-list" style="color: #0e2feb"></i> Services</a
+              >
+            </li>
+            <li>
+              <a href="#portfolio"
+                ><i class="fa fa-briefcase" style="color: #f10d19"></i>
+                Portfolio</a
+              >
+            </li>
+            <li>
+              <a href="#blog"
+                ><i class="fa fa-envelope" style="color: #0fe64f"></i> Blog</a
+              >
+            </li>
+            <li>
+              <a href="#contact"
+                ><i class="fa fa-comments" style="color: #0e770e"></i>
+                Contact</a
+              >
+            </li>
+          </ul>
+          <!-- Copyright -->
+          <div class="copyright-text">&copy; 2021 Portfolio Template</div>
+        </div>
+      </div>
+      <!-- Aside End -->
+      <!-- Main Content -->
+      <div class="main-content">
+        <!-- Home Section -->
+        <section class="home section active" id="home">
+          <div class="container">
+            <div class="intro">
+              <img src="images/about.jpg" alt="profile" class="shadow-dark" />
+              <h1>Satyam Kumar</h1>
+              <span class="iTyped"></span>
+              <div class="social-links">
+                <a href="#"
+                  ><i class="fa fa-github" style="color: #333333"></i
+                ></a>
+                <a href="#"
+                  ><i class="fa fa-facebook" style="color: #4267b2"></i
+                ></a>
+                <a href="#"
+                  ><i class="fa fa-instagram" style="color: #8a3ab9"></i
+                ></a>
+                <a href="#"
+                  ><i class="fa fa-linkedin" style="color: #0077b5"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- Home Section End -->
+
+        <!-- About Section -->
+        <section class="about section" id="about">
+          <div class="container">
+            <div class="row">
+              <div class="section-title padd-15">
+                <h2>About Me</h2>
+              </div>
+            </div>
+            <div class="row">
+              <div class="about-content padd-15">
+                <div class="row">
+                  <div class="about-text padd-15">
+                    <h3>I'm Satyam Kumar and <span>Web Developer</span></h3>
+                    <p>
+                      Hi! My name is Satyam Kumar. I am a Web Developer, and I'm
+                      very passionate and dedicated to my work. With 10 years
+                      experience as a professional Web developer, I have
+                      acquired the skills and knowledge necessary to make your
+                      project a success. I enjoy every step of the design
+                      process, from discussion and collaboration.
+                    </p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="personal-info padd-15">
+                    <div class="row">
+                      <div class="info-item padd-15">
+                        <p>Birthday : <span>25 March 2003</span></p>
+                      </div>
+                      <div class="info-item padd-15">
+                        <p>Age : <span>18</span></p>
+                      </div>
+                      <div class="info-item padd-15">
+                        <p>Website : <span>www.domain.com</span></p>
+                      </div>
+                      <div class="info-item padd-15">
+                        <p>Email : <span>info@gmail.com</span></p>
+                      </div>
+                      <div class="info-item padd-15">
+                        <p>Degree : <span>B.Tech</span></p>
+                      </div>
+                      <div class="info-item padd-15">
+                        <p>Phone : <span>+91 1234 567 890</span></p>
+                      </div>
+                      <div class="info-item padd-15">
+                        <p>City : <span>Bhagalpur</span></p>
+                      </div>
+                      <div class="info-item padd-15">
+                        <p>Freelance : <span>Not Available</span></p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="buttons padd-15">
+                        <a
+                          href="https://drive.google.com/file/d/1j07NaQEEqf8iFxU1kqkdhkarae8KEDIE/view?usp=sharing"
+                          class="btn"
+                          >Download Cv</a
+                        >
+                        <a
+                          href="#contact"
+                          data-section-index="1"
+                          class="btn hire-me"
+                          >Hire me</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="skills padd-15">
+                    <div class="row">
+                      <div class="skill-item padd-15">
+                        <h5>HTML</h5>
+                        <div class="progress">
+                          <div class="progress-in" style="width: 75%"></div>
+                          <div class="skill-porcent">75%</div>
+                        </div>
+                      </div>
+                      <div class="skill-item padd-15">
+                        <h5>CSS</h5>
+                        <div class="progress">
+                          <div class="progress-in" style="width: 60%"></div>
+                          <div class="skill-porcent">60%</div>
+                        </div>
+                      </div>
+                      <div class="skill-item padd-15">
+                        <h5>JavaSript</h5>
+                        <div class="progress">
+                          <div class="progress-in" style="width: 50%"></div>
+                          <div class="skill-porcent">50%</div>
+                        </div>
+                      </div>
+                      <div class="skill-item padd-15">
+                        <h5>C/C++</h5>
+                        <div class="progress">
+                          <div class="progress-in" style="width: 50%"></div>
+                          <div class="skill-porcent">50%</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="education padd-15">
+                    <h3 class="title">Education</h3>
+                    <div class="row">
+                      <div class="timeline-box padd-15">
+                        <div class="timeline shadow-dark">
+                          <!-- timeline Item -->
+                          <div class="timeline-item">
+                            <div class="circle-dot"></div>
+                            <h6 class="timeline-date">
+                              <i class="fa fa-calendar"></i> 2020 - 2024
+                            </h6>
+                            <h4 class="timeline-title">
+                              B.E. In Computer Science
+                            </h4>
+                            <p class="timeline-text">
+                              Lorem ipsum dolor sit amet, consectetur adipiscing
+                              elit. Quisque scelerisque diam non nisi semper, et
+                              elementum lorem ornare.
+                            </p>
+                          </div>
+                          <!-- timeline Item End -->
+                          <!-- timeline Item -->
+                          <div class="timeline-item">
+                            <div class="circle-dot"></div>
+                            <h6 class="timeline-date">
+                              <i class="fa fa-calendar"></i> 2018 - 2020
+                            </h6>
+                            <h4 class="timeline-title">Intermediate in PCM</h4>
+                            <p class="timeline-text">
+                              Lorem ipsum dolor sit amet, consectetur adipiscing
+                              elit. Quisque scelerisque diam non nisi semper, et
+                              elementum lorem ornare.
+                            </p>
+                          </div>
+                          <!-- timeline Item End -->
+                          <!-- timeline Item -->
+                          <div class="timeline-item">
+                            <div class="circle-dot"></div>
+                            <h6 class="timeline-date">
+                              <i class="fa fa-calendar"></i> 2016 - 2018
+                            </h6>
+                            <h4 class="timeline-title">
+                              Completed Matriculation
+                            </h4>
+                            <p class="timeline-text">
+                              Lorem ipsum dolor sit amet, consectetur adipiscing
+                              elit. Quisque scelerisque diam non nisi semper, et
+                              elementum lorem ornare.
+                            </p>
+                          </div>
+                          <!-- timeline Item End -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="experience padd-15">
+                    <h3 class="title">Experience</h3>
+                    <div class="row">
+                      <div class="timeline-box padd-15">
+                        <div class="timeline shadow-dark">
+                          <!-- timeline Item -->
+                          <div class="timeline-item">
+                            <div class="circle-dot"></div>
+                            <h6 class="timeline-date">
+                              <i class="fa fa-calendar"></i> 2020 - 2024
+                            </h6>
+                            <h4 class="timeline-title">Learn Algorithm</h4>
+                            <p class="timeline-text">
+                              Lorem ipsum dolor sit amet, consectetur adipiscing
+                              elit. Quisque scelerisque diam non nisi semper, et
+                              elementum lorem ornare.
+                            </p>
+                          </div>
+                          <!-- timeline Item End -->
+                          <!-- timeline Item -->
+                          <div class="timeline-item">
+                            <div class="circle-dot"></div>
+                            <h6 class="timeline-date">
+                              <i class="fa fa-calendar"></i> 2020 - 2022
+                            </h6>
+                            <h4 class="timeline-title">
+                              Learn Web Development
+                            </h4>
+                            <p class="timeline-text">
+                              Lorem ipsum dolor sit amet, consectetur adipiscing
+                              elit. Quisque scelerisque diam non nisi semper, et
+                              elementum lorem ornare.
+                            </p>
+                          </div>
+                          <!-- timeline Item End -->
+                          <!-- timeline Item -->
+                          <div class="timeline-item">
+                            <div class="circle-dot"></div>
+                            <h6 class="timeline-date">
+                              <i class="fa fa-calendar"></i> 2018 - 2020
+                            </h6>
+                            <h4 class="timeline-title">Learn HTML</h4>
+                            <p class="timeline-text">
+                              Lorem ipsum dolor sit amet, consectetur adipiscing
+                              elit. Quisque scelerisque diam non nisi semper, et
+                              elementum lorem ornare.
+                            </p>
+                          </div>
+                          <!-- timeline Item End -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- About Section End -->
+
+        <!-- Service Section -->
+        <section class="service section" id="services">
+          <div class="container">
+            <div class="row">
+              <div class="section-title padd-15">
+                <h2>Services</h2>
+              </div>
+            </div>
+            <div class="row">
+              <!-- Service item -->
+              <div class="service-item padd-15">
+                <div class="service-item-inner">
+                  <div class="icon"><i class="fa fa-laptop"></i></div>
+                  <h4>Web Design</h4>
+                  <p>
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry Lorem Ipsum.
+                  </p>
+                </div>
+              </div>
+              <!-- Service item End -->
+              <!-- Service item -->
+              <div class="service-item padd-15">
+                <div class="service-item-inner">
+                  <div class="icon"><i class="fa fa-photo"></i></div>
+                  <h4>Photography</h4>
+                  <p>
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry Lorem Ipsum.
+                  </p>
+                </div>
+              </div>
+              <!-- Service item End -->
+              <!-- Service item -->
+              <div class="service-item padd-15">
+                <div class="service-item-inner">
+                  <div class="icon"><i class="fa fa-code"></i></div>
+                  <h4>Web Development</h4>
+                  <p>
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry Lorem Ipsum.
+                  </p>
+                </div>
+              </div>
+              <!-- Service item End -->
+              <!-- Service item -->
+              <div class="service-item padd-15">
+                <div class="service-item-inner">
+                  <div class="icon"><i class="fa fa-film"></i></div>
+                  <h4>Video Editing</h4>
+                  <p>
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry Lorem Ipsum.
+                  </p>
+                </div>
+              </div>
+              <!-- Service item End -->
+              <!-- Service item -->
+              <div class="service-item padd-15">
+                <div class="service-item-inner">
+                  <div class="icon"><i class="fa fa-rocket"></i></div>
+                  <h4>Seo Optimization</h4>
+                  <p>
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry Lorem Ipsum.
+                  </p>
+                </div>
+              </div>
+              <!-- Service Item End -->
+              <!-- Service Item -->
+              <div class="service-item padd-15">
+                <div class="service-item-inner">
+                  <div class="icon"><i class="fa fa-paint-brush"></i></div>
+                  <h4>Logo Design</h4>
+                  <p>
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry Lorem Ipsum.
+                  </p>
+                </div>
+              </div>
+              <!-- Service item End -->
+            </div>
+          </div>
+        </section>
+        <!-- Service Section End -->
+
+        <!-- Portfolio Section -->
+        <section class="portfolio section" id="portfolio">
+          <div class="container">
+            <div class="row">
+              <div class="section-title padd-15">
+                <h2>Portfolio</h2>
+              </div>
+            </div>
+            <div class="row">
+              <div class="portfolio-filter padd-15">
+                <button type="button" class="active" data-filter="all">
+                  All
+                </button>
+                <button type="button" data-filter="web-design">
+                  Web Design
+                </button>
+                <button type="button" data-filter="photography">
+                  Photography
+                </button>
+                <button type="button" data-filter="wordpress">Wordpress</button>
+              </div>
+            </div>
+            <div class="row">
+              <!-- Portfolio Item -->
+              <div class="portfolio-item padd-15" data-category="web-design">
+                <div class="portfolio-item-inner shadow-dark">
+                  <div class="portfolio-img">
+                    <img src="images/portfolio1.jpg" alt="Web Design" />
+                  </div>
+                  <div class="portfolio-info">
+                    <h4>Web Design</h4>
+                    <div class="icon">
+                      <i class="fa fa-search"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Portfolio Item End -->
+              <!-- Portfolio Item -->
+              <div class="portfolio-item padd-15" data-category="photography">
+                <div class="portfolio-item-inner shadow-dark">
+                  <div class="portfolio-img">
+                    <img src="images/portfolio2.jpg" alt="Photography" />
+                  </div>
+                  <div class="portfolio-info">
+                    <h4>Photography</h4>
+                    <div class="icon">
+                      <i class="fa fa-search"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Portfolio Item End -->
+              <!-- Portfolio Item -->
+              <div class="portfolio-item padd-15" data-category="wordpress">
+                <div class="portfolio-item-inner shadow-dark">
+                  <div class="portfolio-img">
+                    <img src="images/portfolio3.jpg" alt="Wordpress" />
+                  </div>
+                  <div class="portfolio-info">
+                    <h4>Wordpress</h4>
+                    <div class="icon">
+                      <i class="fa fa-search"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Portfolio Item End -->
+              <!-- Portfolio Item -->
+              <div class="portfolio-item padd-15" data-category="web-design">
+                <div class="portfolio-item-inner shadow-dark">
+                  <div class="portfolio-img">
+                    <img src="images/portfolio4.jpg" alt="portfolio" />
+                  </div>
+                  <div class="portfolio-info">
+                    <h4>Web Design</h4>
+                    <div class="icon">
+                      <i class="fa fa-search"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Portfolio Item End -->
+              <!-- Portfolio Item -->
+              <div class="portfolio-item padd-15" data-category="wordpress">
+                <div class="portfolio-item-inner shadow-dark">
+                  <div class="portfolio-img">
+                    <img src="images/portfolio5.jpg" alt="Wordpress" />
+                  </div>
+                  <div class="portfolio-info">
+                    <h4>Wordpress</h4>
+                    <div class="icon">
+                      <i class="fa fa-search"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Portfolio Item End -->
+              <!-- Portfolio Item -->
+              <div class="portfolio-item padd-15" data-category="photography">
+                <div class="portfolio-item-inner shadow-dark">
+                  <div class="portfolio-img">
+                    <img src="images/portfolio6.jpg" alt="Wordpress" />
+                  </div>
+                  <div class="portfolio-info">
+                    <h4>Photography</h4>
+                    <div class="icon">
+                      <i class="fa fa-search"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Portfolio Item End -->
+            </div>
+          </div>
+        </section>
+        <!-- Portfolio Section End -->
+
+        <!-- Blog Section -->
+        <section class="blog section" id="blog">
+          <div class="container">
+            <div class="row">
+              <div class="section-title padd-15">
+                <h2>Latest Blog</h2>
+              </div>
+            </div>
+            <div class="row">
+              <!-- Blog Item -->
+              <div class="blog-item padd-15">
+                <div class="blog-item-inner shadow-dark">
+                  <div class="blog-img">
+                    <img src="images/blog.jpg" alt="" />
+                    <div class="blog-date">4 jun 2021</div>
+                  </div>
+                  <div class="blog-info">
+                    <h4 class="blog-title">Responsive Web Design</h4>
+                    <p class="blog-description">
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                      Dolore, porro rem quod illo quam, eum alias id,
+                      repellendus magni, quas.
+                    </p>
+                    <p class="blog-tags">
+                      Tags : <a href="#">Html</a> , <a href="#">css</a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <!-- Blog Item End -->
+              <!-- Blog Item -->
+              <div class="blog-item padd-15">
+                <div class="blog-item-inner shadow-dark">
+                  <div class="blog-img">
+                    <img src="images/blog1.jpg" alt="" />
+                    <div class="blog-date">4 jun 2021</div>
+                  </div>
+                  <div class="blog-info">
+                    <h4 class="blog-title">Creative Slideshow</h4>
+                    <p class="blog-description">
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                      Dolore, porro rem quod illo quam, eum alias id,
+                      repellendus magni, quas.
+                    </p>
+                    <p class="blog-tags">
+                      Tags : <a href="#">Html</a> , <a href="#">Javascript</a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <!-- Blog Item End -->
+              <!-- Blog Item -->
+              <div class="blog-item padd-15">
+                <div class="blog-item-inner shadow-dark">
+                  <div class="blog-img">
+                    <img src="images/blog2.jpg" alt="" />
+                    <div class="blog-date">4 jun 2021</div>
+                  </div>
+                  <div class="blog-info">
+                    <h4 class="blog-title">Image Gallery Lightbox</h4>
+                    <p class="blog-description">
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                      Dolore, porro rem quod illo quam, eum alias id,
+                      repellendus magni, quas.
+                    </p>
+                    <p class="blog-tags">Tags : <a href="#">Javascript</a></p>
+                  </div>
+                </div>
+              </div>
+              <!-- Blog Item End -->
+            </div>
+          </div>
+        </section>
+        <!-- Blog Section End -->
+
+        <!-- Contact Section -->
+        <section class="contact section" id="contact">
+          <div class="container">
+            <div class="row">
+              <div class="section-title padd-15">
+                <h2>Contact Me</h2>
+              </div>
+            </div>
+            <div class="row">
+              <!-- contact-info-item  -->
+              <div class="contact-info-item padd-15">
+                <div class="icon">
+                  <i class="fa fa-phone"></i>
+                  <h4>Call Us On</h4>
+                  <p>+91 9876 543 210</p>
+                </div>
+              </div>
+              <!-- contact-info-item end -->
+              <!-- contact-info-item  -->
+              <div class="contact-info-item padd-15">
+                <div class="icon">
+                  <i class="fa fa-map-marker"></i>
+                  <h4>Office</h4>
+                  <p>44 Street, New Delhi, India</p>
+                </div>
+              </div>
+              <!-- contact-info-item end -->
+              <!-- contact-info-item  -->
+              <div class="contact-info-item padd-15">
+                <div class="icon">
+                  <i class="fa fa-envelope"></i>
+                  <h4>Email</h4>
+                  <p>info@gmail.com</p>
+                </div>
+              </div>
+              <!-- contact-info-item end -->
+            </div>
+
+            <!-- Contact Form -->
+            <div class="row">
+              <form action="#" class="contact-form padd-15">
+                <div class="row">
+                  <div class="form-item col-6 padd-15">
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        name=""
+                        class="form-control"
+                        placeholder="Name*"
+                      />
+                    </div>
+                  </div>
+                  <div class="form-item col-6 padd-15">
+                    <div class="form-group">
+                      <input
+                        type="email"
+                        name=""
+                        class="form-control"
+                        placeholder="Email*"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-item col-12 padd-15">
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        name=""
+                        class="form-control"
+                        placeholder="Subject*"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="form-item col-12 padd-15">
+                    <div class="form-group">
+                      <textarea
+                        class="form-control"
+                        name=""
+                        placeholder="Your Message..."
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 padd-15">
+                    <button type="submit" class="btn">Send Message</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <!-- Contact Form End -->
+          </div>
+        </section>
+        <section class="section cookies_sec" style="z-index: 4">
+          <div class="cookies_info">
+            This Website Use Cookies,Accept it<span
+              ><button class="btn btn-primary cookies_btn">Yes</button></span
+            >
+          </div>
+        </section>
+        <!-- Contact Section End -->
+      </div>
+
+      <!-- Main Content End -->
+    </div>
+    <!-- Main Container End -->
+
+    <!-- Lightbox -->
+    <div class="lightbox">
+      <div class="lightbox-content">
+        <div class="lightbox-close">&times;</div>
+        <img src="" alt="" onclick="nextItem()" class="lightbox-img" />
+        <div class="lightbox-caption">
+          <div class="caption-text"></div>
+          <div class="caption-counter"></div>
+        </div>
+      </div>
+      <div class="lightbox-controls">
+        <div class="prev-item" onclick="prevItem()">
+          <i class="fa fa-angle-left"></i>
+        </div>
+        <div class="next-item" onclick="nextItem()">
+          <i class="fa fa-angle-right"></i>
+        </div>
+      </div>
+    </div>
+    <!-- Lightbox End -->
+
+    <!-- Live Style Switcher - Demo Only -->
+    <div class="style-switcher">
+      <div class="toggle-style-switcher">
+        <i class="fa fa-cog fa-spin"></i>
+      </div>
+      <h5>Style Switcher</h5>
+      <ul>
+        <li>
+          <a
+            href="javascript:void(0);"
+            title="pink"
+            style="background-color: #da0dec"
+            onclick="setActiveStyle('pink')"
+          ></a>
+        </li>
+        <li>
+          <a
+            href="javascript:void(0);"
+            title="blue"
+            style="background-color: #1511ec"
+            onclick="setActiveStyle('blue')"
+          ></a>
+        </li>
+        <li>
+          <a
+            href="javascript:void(0);"
+            title="orange"
+            style="background-color: #f05914"
+            onclick="setActiveStyle('orange')"
+          ></a>
+        </li>
+        <li>
+          <a
+            href="javascript:void(0);"
+            title="yellow"
+            style="background-color: #eeff00"
+            onclick="setActiveStyle('yellow')"
+          ></a>
+        </li>
+        <li>
+          <a
+            href="javascript:void(0);"
+            title="green"
+            style="background-color: #1fca10"
+            onclick="setActiveStyle('green')"
+          ></a>
+        </li>
+      </ul>
+      <h5>Body Skin</h5>
+      <label>
+        <input
+          type="radio"
+          class="body-skin"
+          name="body-skin"
+          value="light"
+          checked="true"
+        />
+        Light
+      </label>
+      <label>
+        <input type="radio" class="body-skin" name="body-skin" value="dark" />
+        Dark
+      </label>
+    </div>
+    <!-- Live Style Switcher - Demo Only End -->
+
+    <!-- Plugins -->
+    <script>
+      $(document).ready(function () {
+        // alert('Satyam Kumar');
+        $(".cookies_btn").click(function () {
+          $(".cookies_sec").css("z-index", "0");
+        });
+      });
+      !(function (e, t) {
+        "object" == typeof exports && "undefined" != typeof module
+          ? t(exports)
+          : "function" == typeof define && define.amd
+          ? define(["exports"], t)
+          : t((e.ityped = {}));
+      })(this, function (e) {
+        "use strict";
+        (e.init = function (e, t) {
+          var n = 0,
+            o = void 0,
+            r = void 0,
+            i = function (e, t) {
+              n === o && t.loop && (n = 0),
+                setTimeout(function () {
+                  a(e[n], t);
+                }, t.startDelay);
+            },
+            a = function (t, n) {
+              var o = 0,
+                r = t.length,
+                i = setInterval(function () {
+                  if (
+                    (n.placeholder
+                      ? (e.placeholder += t[o])
+                      : (e.textContent += t[o]),
+                    ++o === r)
+                  )
+                    return d(i, n);
+                }, n.typeSpeed);
+            },
+            d = function (e, t) {
+              return (
+                clearInterval(e),
+                t.disableBackTyping && n === o - 1
+                  ? t.onFinished()
+                  : t.loop || n !== o - 1
+                  ? void setTimeout(function () {
+                      return c(t);
+                    }, t.backDelay)
+                  : t.onFinished()
+              );
+            },
+            c = function (t) {
+              var n = t.placeholder ? e.placeholder : e.textContent,
+                o = n.length,
+                r = setInterval(function () {
+                  if (
+                    (t.placeholder
+                      ? (e.placeholder = e.placeholder.substr(0, --o))
+                      : (e.textContent = n.substr(0, --o)),
+                    0 === o)
+                  )
+                    return s(r, t);
+                }, t.backSpeed);
+            },
+            s = function (e, t) {
+              clearInterval(e), ++n, i(r, t);
+            };
+          return (function (t) {
+            var n = (function (e) {
+                var t = e.strings,
+                  n =
+                    void 0 === t
+                      ? ["Put your strings here...", "and Enjoy!"]
+                      : t,
+                  o = e.typeSpeed,
+                  r = void 0 === o ? 100 : o,
+                  i = e.backSpeed,
+                  a = void 0 === i ? 50 : i,
+                  d = e.backDelay,
+                  c = void 0 === d ? 500 : d,
+                  s = e.startDelay,
+                  l = void 0 === s ? 500 : s,
+                  u = e.cursorChar,
+                  p = void 0 === u ? "|" : u,
+                  f = e.placeholder,
+                  v = void 0 !== f && f,
+                  h = e.showCursor,
+                  y = void 0 === h || h,
+                  b = e.disableBackTyping,
+                  g = void 0 !== b && b,
+                  C = e.onFinished,
+                  k = void 0 === C ? function () {} : C,
+                  m = e.loop;
+                return {
+                  strings: n,
+                  typeSpeed: r,
+                  backSpeed: a,
+                  cursorChar: p,
+                  backDelay: c,
+                  placeholder: v,
+                  startDelay: l,
+                  showCursor: y,
+                  loop: void 0 === m || m,
+                  disableBackTyping: g,
+                  onFinished: k,
+                };
+              })(t || {}),
+              a = n.strings;
+            (r = a),
+              (o = a.length),
+              "string" == typeof e && (e = document.querySelector(e)),
+              n.showCursor &&
+                (function (e, t) {
+                  var n = document.createElement("span");
+                  n.classList.add("ityped-cursor"),
+                    (n.textContent = "|"),
+                    (n.textContent = t.cursorChar),
+                    e.insertAdjacentElement("afterend", n);
+                })(e, n),
+              i(a, n);
+          })(t);
+        }),
+          Object.defineProperty(e, "__esModule", { value: !0 });
+      });
+    </script>
+    <script>
+      // Preloader
+
+      window.addEventListener("load", function () {
+        document.querySelector(".preloader").classList.add("opacity-0");
+        setTimeout(function () {
+          document.querySelector(".preloader").style.display = "none";
+        }, 1000);
+      });
+
+      // iTyped
+
+      window.ityped.init(document.querySelector(".iTyped"), {
+        strings: [
+          "I'm a Web Developer",
+          "I Love Html5",
+          "I Love CSS3",
+          "I Love Javascript",
+          "I Love Jquery",
+        ],
+        loop: true,
+      });
+
+      // Portfolio Item Filter
+
+      const filterContainer = document.querySelector(".portfolio-filter"),
+        filterBtns = filterContainer.children,
+        totalFilterBtn = filterBtns.length,
+        portfolioItems = document.querySelectorAll(".portfolio-item"),
+        totalPortfolioItem = portfolioItems.length;
+
+      for (let i = 0; i < totalFilterBtn; i++) {
+        filterBtns[i].addEventListener("click", function () {
+          filterContainer.querySelector(".active").classList.remove("active");
+          this.classList.add("active");
+
+          const filterValue = this.getAttribute("data-filter");
+          for (let k = 0; k < totalPortfolioItem; k++) {
+            if (
+              filterValue === portfolioItems[k].getAttribute("data-category")
+            ) {
+              portfolioItems[k].classList.remove("hide");
+              portfolioItems[k].classList.add("show");
+            } else {
+              portfolioItems[k].classList.remove("show");
+              portfolioItems[k].classList.add("hide");
+            }
+            if (filterValue === "all") {
+              portfolioItems[k].classList.remove("hide");
+              portfolioItems[k].classList.add("show");
+            }
+          }
+        });
+      }
+
+      // Portfolio Lighbox
+
+      const lightbox = document.querySelector(".lightbox"),
+        lightboxImg = lightbox.querySelector(".lightbox-img"),
+        lightboxText = lightbox.querySelector(".caption-text"),
+        lightboxClose = lightbox.querySelector(".lightbox-close"),
+        lightboxCounter = lightbox.querySelector(".caption-counter");
+
+      let itemIndex = 0;
+
+      for (let i = 0; i < totalPortfolioItem; i++) {
+        portfolioItems[i].addEventListener("click", function () {
+          itemIndex = i;
+          changeItem();
+          toggleLightbox();
+        });
+      }
+
+      function toggleLightbox() {
+        lightbox.classList.toggle("open");
+      }
+
+      function changeItem() {
+        let imgSrc = portfolioItems[itemIndex]
+          .querySelector(".portfolio-img img")
+          .getAttribute("src");
+        lightboxImg.src = imgSrc;
+        lightboxText.innerHTML =
+          portfolioItems[itemIndex].querySelector("h4").innerHTML;
+        lightboxCounter.innerHTML = itemIndex + 1 + " of " + totalPortfolioItem;
+      }
+
+      function prevItem() {
+        if (itemIndex === 0) {
+          itemIndex = totalPortfolioItem - 1;
+        } else {
+          itemIndex--;
+        }
+        changeItem();
+      }
+
+      function nextItem() {
+        if (itemIndex === totalPortfolioItem - 1) {
+          itemIndex = 0;
+        } else {
+          itemIndex++;
+        }
+        changeItem();
+      }
+
+      // close lightbox
+
+      lightbox.addEventListener("click", function (event) {
+        if (event.target === lightboxClose || event.target === lightbox) {
+          toggleLightbox();
+        }
+      });
+
+      // Aside Navbar
+
+      const nav = document.querySelector(".nav"),
+        navList = nav.querySelectorAll("li"),
+        totalNavList = navList.length,
+        allSection = document.querySelectorAll(".section"),
+        totalSection = allSection.length;
+
+      for (let i = 0; i < totalNavList; i++) {
+        const a = navList[i].querySelector("a");
+        a.addEventListener("click", function () {
+          // remove back section class
+          removeBackSectionClass();
+
+          for (let j = 0; j < totalNavList; j++) {
+            if (navList[j].querySelector("a").classList.contains("active")) {
+              // add back section class
+              addBackSectionClass(j);
+            }
+            navList[j].querySelector("a").classList.remove("active");
+          }
+
+          this.classList.add("active");
+
+          showSection(this);
+
+          if (window.innerWidth < 1200) {
+            asideSectionTogglerBtn();
+          }
+        });
+      }
+
+      function addBackSectionClass(num) {
+        allSection[num].classList.add("back-section");
+      }
+
+      function removeBackSectionClass() {
+        for (let i = 0; i < totalSection; i++) {
+          allSection[i].classList.remove("back-section");
+        }
+      }
+
+      function updateNav(element) {
+        for (let i = 0; i < totalNavList; i++) {
+          navList[i].querySelector("a").classList.remove("active");
+          const target = element.getAttribute("href").split("#")[1];
+          if (
+            target ===
+            navList[i].querySelector("a").getAttribute("href").split("#")[1]
+          ) {
+            navList[i].querySelector("a").classList.add("active");
+          }
+        }
+      }
+
+      document.querySelector(".hire-me").addEventListener("click", function () {
+        const sectionIndex = this.getAttribute("data-section-index");
+        addBackSectionClass(sectionIndex);
+        showSection(this);
+        updateNav(this);
+        removeBackSectionClass();
+      });
+
+      function showSection(element) {
+        for (let i = 0; i < totalSection; i++) {
+          allSection[i].classList.remove("active");
+        }
+
+        const target = element.getAttribute("href").split("#")[1];
+
+        document.querySelector("#" + target).classList.add("active");
+      }
+
+      const navTogglerBtn = document.querySelector(".nav-toggler"),
+        aside = document.querySelector(".aside");
+
+      navTogglerBtn.addEventListener("click", asideSectionTogglerBtn);
+
+      function asideSectionTogglerBtn() {
+        aside.classList.toggle("open");
+        navTogglerBtn.classList.toggle("open");
+        for (let i = 0; i < totalSection; i++) {
+          allSection[i].classList.toggle("open");
+        }
+      }
+    </script>
+    <script>
+      const links = document.querySelectorAll(".alternate-style"),
+        totalLinks = links.length;
+
+      function setActiveStyle(color) {
+        for (let i = 0; i < totalLinks; i++) {
+          if (color === links[i].getAttribute("title")) {
+            links[i].removeAttribute("disabled");
+          } else {
+            links[i].setAttribute("disabled", true);
+          }
+        }
+      }
+
+      // body skin
+
+      const bodySkin = document.querySelectorAll(".body-skin"),
+        totalBodySkin = bodySkin.length;
+
+      for (let i = 0; i < totalBodySkin; i++) {
+        bodySkin[i].addEventListener("change", function () {
+          if (this.value === "dark") {
+            document.body.className = "dark";
+          } else {
+            document.body.className = "";
+          }
+        });
+      }
+
+      document
+        .querySelector(".toggle-style-switcher")
+        .addEventListener("click", () => {
+          document.querySelector(".style-switcher").classList.toggle("open");
+        });
+    </script>
+  </body>
+</html>
